@@ -11,17 +11,16 @@ using namespace std;
 int maxProfit(vector<int>& v){
 
     int mn = INT_MAX, mx = INT_MIN;
-    int cur = 0, ans = 0, cur2 = 0;
+    int ans = 0;
     for(int i = 0; i < v.size(); i++){
 
         if(mn > v[i]){
             
             mn = v[i];
-            cur = i;
             continue;
         }
         
-        if(cur < i && v[i] > mn){
+        if(v[i] > mn){
             
             mx = v[i];
             ans = max(ans, mx-mn);
