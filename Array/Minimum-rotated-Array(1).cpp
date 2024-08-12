@@ -5,19 +5,23 @@ using namespace std;
 
 #define NEED_FOR_SPEED ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-
-int findMin(vector<int>& nums) {
-    
-    int mx1 = INT_MAX, mx2 = INT_MAX;
-    int ans = INT_MAX;
-    for(int i = 0, j = nums.size()-1; i <= j; i++, j--){
-
-        mx1 = min(mx1, nums[i]);
-        mx2 = min(mx2, nums[j]);
-        ans = min(ans, min(mx1, mx2));
+int findMin(const vector<int>& nums) {
+    int left = 0;
+    int right = nums.size() - 1;
+    int mn = INT_MAX;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if(nums[mid] > nums[right]){
+            left = mid + 1;
+            mn = min(mn, nums[right]);
+        }
+        else{
+            right = mid - 1;
+            mn = min(mn, nums[mid]);
+        }
     }
-
-    return ans;
+    return mn;
 }
 
 void solve(){
@@ -25,7 +29,7 @@ void solve(){
     vector<int> v(n);
     for(int i = 0; i < n; i++){
         cin >> v[i];
-    }  
+    }
     cout << findMin(v) << '\n';
     return;
 }
@@ -33,7 +37,8 @@ void solve(){
 int32_t main()
 {
     NEED_FOR_SPEED;
-    int t; cin >> t;
+    int t = 1;
+    // cin >> t;
     while(t--){
         solve();
     }
